@@ -1,7 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:background="@color/colorFifth"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:background="@color/colorThird" />
+
+    <LinearLayout
+        android:id="@+id/menu_layout"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/item_medium"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:weightSum="3"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="2.7"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_fingerprint_white"/>
+
+            <LinearLayout
+                android:layout_weight="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:background="@color/colorFifth"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check In"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:weightSum="3"
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="2.7"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_rowing"/>
+
+            <LinearLayout
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:background="@color/colorFifth"
+                >
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check Out"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Any trouble? Message us!"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/menu_layout"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/item_medium"/>
 
 </RelativeLayout>
