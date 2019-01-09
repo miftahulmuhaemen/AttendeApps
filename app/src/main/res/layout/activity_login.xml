@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorFifth"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@color/colorPrimary"
+        />
+
+    <LinearLayout
+        android:layout_above="@id/card_base"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/bigmaintext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attende"
+            android:textColor="@android:color/white"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="app"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_base"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="64dp"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="32dp"
+
+                android:hint="E-mail"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="E-mail"
+                android:text="sadasdsad"/>
+
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="16dp"
+
+                android:hint="Password"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="Password"
+                android:text="sadasdsad"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="@color/colorThird"
+                android:orientation="vertical"
+                >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_gravity="center|end"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginTop="8dp"
+                    />
+
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Login"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textColor="@android:color/white"-->
+                    <!--android:gravity="end"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginRight="32dp"/>-->
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

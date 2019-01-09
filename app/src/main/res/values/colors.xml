@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#CC2A49</color>
+    <color name="colorSecondary">#F99E4C</color>
+    <color name="colorThird">#F36F38</color>
+    <color name="colorForth">#EF4648</color>
+    <color name="colorFifth">#582841</color>
+</resources>
