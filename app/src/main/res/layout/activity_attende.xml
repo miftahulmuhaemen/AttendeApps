@@ -1,17 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorFifth"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/test_nameTile"
+        android:layout_marginTop="@dimen/item_medium"
+        android:layout_marginStart="@dimen/item_medium"
+        android:textSize="@dimen/TileNama"
+        android:textColor="@android:color/white"/>
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignTop="@id/menu_layout"
+
+        android:layout_marginTop="@dimen/item_large"
         android:layout_marginBottom="0dp"
         android:background="@color/colorThird" />
+
+
+    <TextView
+        android:id="@+id/tv_kodekaryawan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:text="@string/test_mainCode"
+        android:textSize="20sp"
+
+        android:rotation="-90"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/menu_layout"
+        android:translationX="16dp"
+        android:layout_marginTop="@dimen/item_medium"
+        android:padding="@dimen/item_verysmall"
+        android:background="@color/colorPrimary"
+        tools:ignore="RelativeOverlap" />
+
 
     <LinearLayout
         android:id="@+id/menu_layout"
@@ -22,6 +55,7 @@
         android:layout_centerHorizontal="true">
 
         <LinearLayout
+            android:id="@+id/btn_checkin"
             android:layout_marginBottom="@dimen/item_medium"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -34,7 +68,8 @@
                 android:layout_height="100dp"
                 android:layout_weight="2.7"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_fingerprint_white"/>
+                android:src="@drawable/ic_fingerprint_white"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:layout_weight="0.5"
@@ -46,7 +81,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Check In"
+                    android:text="@string/check_in"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
                     />
@@ -54,6 +89,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btn_checkout"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:weightSum="3"
@@ -65,7 +101,8 @@
                 android:layout_height="100dp"
                 android:layout_weight="2.7"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_rowing"/>
+                android:src="@drawable/ic_rowing"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:layout_gravity="bottom"
@@ -76,24 +113,76 @@
                 android:background="@color/colorFifth"
                 >
 
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Check Out"
+                    android:text="@string/check_out"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"/>
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+
+    <LinearLayout
+        android:id="@+id/lock_menu"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_alignTop="@id/menu_layout"
+        android:layout_alignBottom="@id/menu_layout"
+        android:layout_alignStart="@id/menu_layout"
+        android:layout_alignEnd="@id/menu_layout"
+
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_lock"
+            tools:ignore="ContentDescription" />
+
+        <Button
+            android:id="@+id/btn_access"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/item_verysmall"
+            android:padding="@dimen/item_verysmall"
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@android:color/white"
+            android:text="@string/access_flash"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Any trouble? Message us!"
-        android:textColor="@android:color/white"
         android:layout_below="@id/menu_layout"
         android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/item_medium"/>
+        android:layout_marginTop="@dimen/item_medium">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/any_trouble_message_us"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/adminmsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/message_us"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="@dimen/item_verysmall"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

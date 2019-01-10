@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="item_32dp">32dp</dimen>
-    <dimen name="MainTitle">60sp</dimen>
     <dimen name="item_medium">32dp</dimen>
     <dimen name="item_small">16dp</dimen>
     <dimen name="item_large">64dp</dimen>
+    <dimen name="item_big">96dp</dimen>
     <dimen name="item_verysmall">8dp</dimen>
+
+    <dimen name="MainTitle">60sp</dimen>
+    <dimen name="TileNama">30sp</dimen>
 </resources>

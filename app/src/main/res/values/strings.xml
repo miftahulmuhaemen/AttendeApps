@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">AttendeMapsNusa</string>
     <string name="fill_it_with_the_right_e_mail_address">Fill it with the right e-mail address</string>
+    <string name="any_trouble_message_us">Any trouble?</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="e_mail">E-mail</string>
+    <string name="attende">Attende</string>
+    <string name="app">app</string>
+    <string name="test_nameTile">Naufal Rifky Devandy</string>
+    <string name="test_mainCode">1024</string>
+    <string name="check_in">Check In</string>
+    <string name="access_flash">Access Flash</string>
+    <string name="message_us">Message us!</string>
+    <string name="check_out">Check Out</string>
 </resources>
