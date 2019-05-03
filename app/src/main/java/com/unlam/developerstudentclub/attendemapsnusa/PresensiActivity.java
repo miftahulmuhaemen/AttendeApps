@@ -1,6 +1,7 @@
 package com.unlam.developerstudentclub.attendemapsnusa;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.location.Location;
@@ -39,11 +40,6 @@ public class PresensiActivity extends AppCompatActivity {
     LinearLayout btn_checkin;
     @BindView(R.id.btn_checkout)
     LinearLayout btn_checkout;
-    @BindView(R.id.lock_menu)
-    LinearLayout lockmmenu;
-
-    @BindView(R.id.btn_access)
-    Button btn_access;
 
     @BindView(R.id.adminmsg)
     TextView btn_adminmsg;
@@ -54,14 +50,20 @@ public class PresensiActivity extends AppCompatActivity {
 
     UserPreference userPreference;
 
+    public static String IDENTIFIER_REQUEST = "checkinuot";
+    public static int CHECK_IN = R.id.option_checkin;
+    public static int CHECK_OUT = R.id.option_checkout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attende);
         ButterKnife.bind(this);
 
+        userPreference =  new UserPreference(this);
+
         tv_username.setText(userPreference.getNama());
-        tv_kodekaryawan.setText(userPreference.getCode());
+        tv_kodekaryawan.setText(Integer.toString(userPreference.getCode()));
 
         Fonty
                 .context(this)
@@ -71,64 +73,64 @@ public class PresensiActivity extends AppCompatActivity {
 
         Fonty.setFonts(this);
 
-        PushDownAnim.setPushDownAnimTo(btn_checkin,btn_checkout,btn_access,btn_adminmsg)
+        PushDownAnim.setPushDownAnimTo(btn_checkin,btn_checkout,btn_adminmsg)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Intent intent = new Intent(PresensiActivity.this,MapsActivityCurrentPlace.class);
                         switch(v.getId()){
                             case R.id.btn_checkin :
-                                locationPoint();
+                                intent.putExtra(IDENTIFIER_REQUEST,CHECK_IN);
+                                startActivity(intent);
+//                                locationPoint();
                                 break;
                             case R.id.btn_checkout :
-                                break;
-                            case R.id.btn_access :
-                                methodRequiresTwoPermission();
-                                break;
-                            case R.id.adminmsg :
+                                intent.putExtra(IDENTIFIER_REQUEST,CHECK_OUT);
+                                startActivity(intent);
                                 break;
                         }
                     }
                 });
 
-        methodRequiresTwoPermission();
+//        methodRequiresTwoPermission();
     }
 
-    private void methodRequiresTwoPermission() {
-        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
-        if (EasyPermissions.hasPermissions(this, perms)) {
-            lockmmenu.setVisibility(View.GONE);
-        } else {
-            EasyPermissions.requestPermissions(this,
-                    "Izin lokasi?",
-                    RC_LOCATION_PERMISSION_CODE, perms);
-        }
-    }
+//    private void methodRequiresTwoPermission() {
+//        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
+//        if (EasyPermissions.hasPermissions(this, perms)) {
+//            lockmmenu.setVisibility(View.GONE);
+//        } else {
+//            EasyPermissions.requestPermissions(this,
+//                    "Izin lokasi?",
+//                    RC_LOCATION_PERMISSION_CODE, perms);
+//        }
+//    }
 
-    public void locationPoint() {
-
-        LocationRequest request = new LocationRequest();
-        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        FusedLocationProviderClient client = LocationServices.getFusedLocationProviderClient(this);
-        int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-
-        if (permission == PackageManager.PERMISSION_GRANTED) {
-            client.requestLocationUpdates(request, new LocationCallback() {
-
-                @Override
-                public void onLocationResult(LocationResult locationResult) {
-
-                    Location location = locationResult.getLastLocation();
-
-                    if (location != null) {
-                        Location company = new Location("");
-                        company.setLatitude(-3.4016452);
-                        company.setLongitude(115.9044867);
-                        Toast.makeText(PresensiActivity.this, Math.round(location.distanceTo(company)) + "meter", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            }, null);
-        }
-    }
+//    public void locationPoint() {
+//
+//        LocationRequest request = new LocationRequest();
+//        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//        FusedLocationProviderClient client = LocationServices.getFusedLocationProviderClient(this);
+//        int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+//
+//        if (permission == PackageManager.PERMISSION_GRANTED) {
+//            client.requestLocationUpdates(request, new LocationCallback() {
+//
+//                @Override
+//                public void onLocationResult(LocationResult locationResult) {
+//
+//                    Location location = locationResult.getLastLocation();
+//
+//                    if (location != null) {
+//                        Location company = new Location("");
+//                        company.setLatitude(-3.4016452);
+//                        company.setLongitude(115.9044867);
+//                        Toast.makeText(PresensiActivity.this, Math.round(location.distanceTo(company)) + "meter", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                }
+//            }, null);
+//        }
+//    }
 
 }

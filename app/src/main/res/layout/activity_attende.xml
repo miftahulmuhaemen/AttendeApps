@@ -68,7 +68,7 @@
                 android:layout_height="100dp"
                 android:layout_weight="2.7"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_fingerprint_white"
+                android:src="@drawable/ic_check_box_black_24dp"
                 tools:ignore="ContentDescription" />
 
             <LinearLayout
@@ -101,7 +101,7 @@
                 android:layout_height="100dp"
                 android:layout_weight="2.7"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_rowing"
+                android:src="@drawable/ic_exit_to_app_black_24dp"
                 tools:ignore="ContentDescription" />
 
             <LinearLayout
@@ -122,42 +122,6 @@
 
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/lock_menu"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:layout_alignTop="@id/menu_layout"
-        android:layout_alignBottom="@id/menu_layout"
-        android:layout_alignStart="@id/menu_layout"
-        android:layout_alignEnd="@id/menu_layout"
-
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:background="@color/colorPrimary">
-
-        <ImageView
-            android:layout_gravity="center_horizontal"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_lock"
-            tools:ignore="ContentDescription" />
-
-        <Button
-            android:id="@+id/btn_access"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/item_verysmall"
-            android:padding="@dimen/item_verysmall"
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@android:color/white"
-            android:text="@string/access_flash"
-            />
-
     </LinearLayout>
 
     <LinearLayout

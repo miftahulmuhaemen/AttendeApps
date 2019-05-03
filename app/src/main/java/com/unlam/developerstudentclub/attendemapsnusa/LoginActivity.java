@@ -51,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        userPreference =  new UserPreference(this);
+
         Fonty   .context(this)
                 .normalTypeface("Domine-Regular.ttf")
                 .boldTypeface("PatuaOne-Regular.ttf")
@@ -82,28 +84,34 @@ public class LoginActivity extends AppCompatActivity {
                 if(isEmpty){
                     progressbar.setVisibility(View.VISIBLE);
 
-                    Call<ApiDefaultResponse> call = api.getLogin(API_KEY, email, password);
-                    call.enqueue(new Callback<ApiDefaultResponse>() {
-                        @Override
-                        public void onResponse(Call<ApiDefaultResponse> call, Response<ApiDefaultResponse> response) {
-                            if(response.isSuccessful()){
-                                userPreference.setPreference("", 0); /*Sesuaikan dengan kiriman API*/
-                                Intent intent = new Intent(LoginActivity.this,PresensiActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
 
-                        @Override
-                        public void onFailure(Call<ApiDefaultResponse> call, Throwable t) {
-                            if (t instanceof IOException) {
-                                Toast.makeText(LoginActivity.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                    userPreference.setPreference("ASDAsd", 2133); /*Sesuaikan dengan kiriman API*/
+                    Intent intent = new Intent(LoginActivity.this,PresensiActivity.class);
+                    startActivity(intent);
+                    finish();
+
+//                    Call<ApiDefaultResponse> call = api.getLogin(API_KEY, email, password);
+//                    call.enqueue(new Callback<ApiDefaultResponse>() {
+//                        @Override
+//                        public void onResponse(Call<ApiDefaultResponse> call, Response<ApiDefaultResponse> response) {
+//                            if(response.isSuccessful()){
+//                                userPreference.setPreference("", 0); /*Sesuaikan dengan kiriman API*/
+//                                Intent intent = new Intent(LoginActivity.this,PresensiActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<ApiDefaultResponse> call, Throwable t) {
+//                            if (t instanceof IOException) {
+//                                Toast.makeText(LoginActivity.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+//                            }
+//                            else {
+//                                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
 
 
                 }
