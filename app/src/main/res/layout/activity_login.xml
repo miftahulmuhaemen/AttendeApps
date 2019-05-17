@@ -6,7 +6,6 @@
     android:background="@color/colorFifth"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -65,7 +64,7 @@
             android:orientation="vertical">
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/edt_email"
+                android:id="@+id/edt_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/item_medium"
@@ -74,7 +73,7 @@
 
                 android:hint="@string/e_mail"
                 app:met_floatingLabel="highlight"
-                app:met_floatingLabelText="E-mail"/>
+                app:met_floatingLabelText="Username"/>
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/edt_password"
@@ -105,6 +104,7 @@
                     android:indeterminate="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/item_medium"
+                    android:visibility="invisible"
                     />
 
                 <Button

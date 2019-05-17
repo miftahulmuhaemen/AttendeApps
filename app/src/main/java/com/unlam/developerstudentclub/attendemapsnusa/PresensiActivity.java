@@ -34,8 +34,6 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class PresensiActivity extends AppCompatActivity {
 
-    static int RC_LOCATION_PERMISSION_CODE = 101;
-
     @BindView(R.id.btn_checkin)
     LinearLayout btn_checkin;
     @BindView(R.id.btn_checkout)
@@ -51,8 +49,8 @@ public class PresensiActivity extends AppCompatActivity {
     UserPreference userPreference;
 
     public static String IDENTIFIER_REQUEST = "checkinuot";
-    public static int CHECK_IN = R.id.option_checkin;
-    public static int CHECK_OUT = R.id.option_checkout;
+    public static int CHECK_IN = R.menu.menu_checkin;
+    public static int CHECK_OUT = R.menu.menu_checkout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +61,7 @@ public class PresensiActivity extends AppCompatActivity {
         userPreference =  new UserPreference(this);
 
         tv_username.setText(userPreference.getNama());
-        tv_kodekaryawan.setText(Integer.toString(userPreference.getCode()));
+        tv_kodekaryawan.setText(userPreference.getCode());
 
         Fonty
                 .context(this)
@@ -82,7 +80,6 @@ public class PresensiActivity extends AppCompatActivity {
                             case R.id.btn_checkin :
                                 intent.putExtra(IDENTIFIER_REQUEST,CHECK_IN);
                                 startActivity(intent);
-//                                locationPoint();
                                 break;
                             case R.id.btn_checkout :
                                 intent.putExtra(IDENTIFIER_REQUEST,CHECK_OUT);
@@ -91,46 +88,7 @@ public class PresensiActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-//        methodRequiresTwoPermission();
     }
 
-//    private void methodRequiresTwoPermission() {
-//        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
-//        if (EasyPermissions.hasPermissions(this, perms)) {
-//            lockmmenu.setVisibility(View.GONE);
-//        } else {
-//            EasyPermissions.requestPermissions(this,
-//                    "Izin lokasi?",
-//                    RC_LOCATION_PERMISSION_CODE, perms);
-//        }
-//    }
-
-//    public void locationPoint() {
-//
-//        LocationRequest request = new LocationRequest();
-//        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-//        FusedLocationProviderClient client = LocationServices.getFusedLocationProviderClient(this);
-//        int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-//
-//        if (permission == PackageManager.PERMISSION_GRANTED) {
-//            client.requestLocationUpdates(request, new LocationCallback() {
-//
-//                @Override
-//                public void onLocationResult(LocationResult locationResult) {
-//
-//                    Location location = locationResult.getLastLocation();
-//
-//                    if (location != null) {
-//                        Location company = new Location("");
-//                        company.setLatitude(-3.4016452);
-//                        company.setLongitude(115.9044867);
-//                        Toast.makeText(PresensiActivity.this, Math.round(location.distanceTo(company)) + "meter", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                }
-//            }, null);
-//        }
-//    }
 
 }

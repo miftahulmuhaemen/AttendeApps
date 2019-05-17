@@ -1,22 +1,28 @@
 package com.unlam.developerstudentclub.attendemapsnusa;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -31,12 +37,28 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.unlam.developerstudentclub.attendemapsnusa.API.ApiGenerator;
+import com.unlam.developerstudentclub.attendemapsnusa.API.ApiInterface;
+import com.unlam.developerstudentclub.attendemapsnusa.API.DefaultResponse;
+import com.unlam.developerstudentclub.attendemapsnusa.API.LoginResponse;
+import com.unlam.developerstudentclub.attendemapsnusa.Util.UserPreference;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.unlam.developerstudentclub.attendemapsnusa.PresensiActivity.CHECK_IN;
 import static com.unlam.developerstudentclub.attendemapsnusa.PresensiActivity.CHECK_OUT;
@@ -82,18 +104,16 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     Toolbar toolbar; //using V7 Support
 
 
+    ApiInterface api = ApiGenerator.createService(ApiInterface.class);
+    UserPreference userPreference;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        userPreference = new UserPreference(this);
 
-        if(getIntent()!=null){
-            if(getIntent().getIntExtra(IDENTIFIER_REQUEST, CHECK_IN) == CHECK_IN){
-                menu_option = CHECK_IN;
-            } else if (getIntent().getIntExtra(IDENTIFIER_REQUEST, CHECK_IN) == CHECK_OUT) {
-                menu_option = CHECK_OUT;
-            }
-        }
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -142,6 +162,15 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
+        if(getIntent()!=null){
+            if(getIntent().getIntExtra(IDENTIFIER_REQUEST, CHECK_IN) == CHECK_IN){
+                menu_option = CHECK_IN;
+            } else if (getIntent().getIntExtra(IDENTIFIER_REQUEST, CHECK_IN) == CHECK_OUT) {
+                menu_option = CHECK_OUT;
+            }
+        }
+
         getMenuInflater().inflate(menu_option, menu);
         return true;
     }
@@ -154,14 +183,71 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        final View v1 = getWindow().getDecorView().getRootView();
         if (item.getItemId() == R.id.option_checkin) {
             if (bitmap != null) {
-                Log.d("ASELOLE", Double.toString(mLastKnownLocation.getLatitude()) + ", " + Double.toString(mLastKnownLocation.getLongitude()));
+
+                HashMap<String, RequestBody> map = new HashMap<>();
+                map.put("karId", createPartFromString(userPreference.getCode()));
+                map.put("longitude", createPartFromString(Double.toString(mLastKnownLocation.getLongitude())));
+                map.put("latitude", createPartFromString(Double.toString(mLastKnownLocation.getLatitude())));
+
+                File file = createTempFile(bitmap);
+                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+                MultipartBody.Part body = MultipartBody.Part.createFormData("foto", file.getName(), reqFile);
+
+                Call<DefaultResponse> call = api.cekin(map, body);
+                call.enqueue(new Callback<DefaultResponse>() {
+                    @Override
+                    public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                        if(response.body().getStatus()){
+                            Snackbar.make(v1, response.body().getMsg(), Snackbar.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Snackbar.make(v1, response.body().getMsg(), Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                        Snackbar.make(v1, "Kesalahan terjadi.", Snackbar.LENGTH_SHORT).show();
+                    }
+                });
             }
         } else if (item.getItemId() == R.id.option_checkout) {
             if (bitmap != null) {
-                Log.d("ASELOLE", Double.toString(mLastKnownLocation.getLatitude()) + ", " + Double.toString(mLastKnownLocation.getLongitude()));
-            }
+
+                HashMap<String, RequestBody> map = new HashMap<>();
+                map.put("karId", createPartFromString(userPreference.getCode()));
+                map.put("absTglAbsen", createPartFromString(""));
+                map.put("absJamAbsen", createPartFromString(""));
+                map.put("absStatusAbsen", createPartFromString(""));
+                map.put("longitude", createPartFromString(Double.toString(mLastKnownLocation.getLongitude())));
+                map.put("latitude", createPartFromString(Double.toString(mLastKnownLocation.getLatitude())));
+
+                File file = createTempFile(bitmap);
+                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+                MultipartBody.Part body = MultipartBody.Part.createFormData("foto", file.getName(), reqFile);
+
+                Call<DefaultResponse> call = api.cekout(map, body);
+                call.enqueue(new Callback<DefaultResponse>() {
+                    @Override
+                    public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                        if(response.body().getStatus()){
+                            Snackbar.make(v1, response.body().getMsg(), Snackbar.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Snackbar.make(v1, response.body().getMsg(), Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                        Snackbar.make(v1, "Kesalahan terjadi.", Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+           }
         } else if (item.getItemId() == R.id.camera) {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, TAKE_PICTURE);
@@ -177,32 +263,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
-        // Use a custom info window adapter to handle multiple lines of text in the
-        // info window contents.
-//        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-//
-//            @Override
-//            // Return null here, so that getInfoContents() is called next.
-//            public View getInfoWindow(Marker arg0) {
-//                return null;
-//            }
-//
-//            @Override
-//            public View getInfoContents(Marker marker) {
-//                // Inflate the layouts for the info window, title and snippet.
-//                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
-//                        (FrameLayout) findViewById(R.id.map), false);
-//
-//                TextView title = ((TextView) infoWindow.findViewById(R.id.title));
-//                title.setText(marker.getTitle());
-//
-//                TextView snippet = ((TextView) infoWindow.findViewById(R.id.snippet));
-//                snippet.setText(marker.getSnippet());
-//
-//                return infoWindow;
-//            }
-//        });
-
         // Prompt the user for permission.
         getLocationPermission();
 
@@ -217,10 +277,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
      * Gets the current location of the device, and positions the map's camera.
      */
     private void getDeviceLocation() {
-        /*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
-         */
         try {
             if (mLocationPermissionGranted) {
                 Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
@@ -253,11 +309,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
      * Prompts the user for permission to use the device location.
      */
     private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -312,18 +363,6 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
     }
 
 
-    private Bitmap getDecodedImageFromUri(Uri uri) {
-        InputStream inputStream = null;
-        try {
-            inputStream = this.getContentResolver().openInputStream(uri);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        Rect rect = new Rect(0, 0, 0, 0);
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeStream(inputStream, rect, options); //HERE IS PROBLEM - bitmap = null
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -333,9 +372,35 @@ public class MapsActivityCurrentPlace extends AppCompatActivity
             case TAKE_PICTURE:
                 if (resultCode == RESULT_OK && intent.hasExtra("data")) {
                     bitmap = (Bitmap) intent.getExtras().get("data");
-
                 }
                 break;
         }
     }
+
+
+    @NonNull
+    public RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(
+                okhttp3.MultipartBody.FORM, descriptionString);
+    }
+
+
+
+    private File createTempFile(Bitmap bitmap) {
+        File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+                , System.currentTimeMillis() +"_image.webp");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.WEBP,0, bos);
+        byte[] bitmapdata = bos.toByteArray();
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+
 }

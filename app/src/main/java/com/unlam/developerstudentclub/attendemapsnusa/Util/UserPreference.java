@@ -14,9 +14,9 @@ public class UserPreference {
         preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
-    public void setPreference(String nama, int code){
+    public void setPreference(String nama, String code){
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(KEY_CODE, code);
+        editor.putString(KEY_CODE, code);
         editor.putString(KEY_NAMA, nama);
         editor.apply();
     }
@@ -28,8 +28,8 @@ public class UserPreference {
         editor.apply();
     }
 
-    public int getCode(){
-        return preferences.getInt(KEY_CODE, 0);
+    public String getCode(){
+        return preferences.getString(KEY_CODE, "");
     }
     public String getNama(){
         return preferences.getString(KEY_NAMA,"");

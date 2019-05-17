@@ -4,12 +4,14 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.unlam.developerstudentclub.attendemapsnusa"
-        minSdkVersion 23
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         resValue "string", "google_maps_key", (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
+//        buildConfigField("String", "WEB_API_KEY", WEB_API_KEY)
     }
     buildTypes {
         release {
@@ -40,9 +42,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'com.robertlevonyan.view:CustomFloatingActionButton:2.1.1'
-    implementation("com.github.bumptech.glide:glide:4.4.0") {
-        exclude group: "com.android.support"
-    }
 
     implementation('com.github.thekhaeng:pushdown-anim-click:1.1.1') {
         exclude group: 'com.android.support'
@@ -55,4 +54,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
 
     implementation 'com.google.android.gms:play-services:12.0.1'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+
 }
