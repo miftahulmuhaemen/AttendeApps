@@ -6,6 +6,15 @@
     android:background="@color/colorFifth"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/syarifah_risnayani_nrp_15_04_1058"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,17 +44,11 @@
             android:id="@+id/bigmaintext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/attende"
+            android:text="Absensi Karyawan"
             android:textColor="@android:color/white"
             android:textSize="@dimen/MainTitle"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app"
-            android:textSize="24sp"
-            android:textColor="@android:color/white"/>
 
     </LinearLayout>
 

@@ -9,7 +9,7 @@
         android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/test_nameTile"
+        android:text="PT Nusantara Batulicin"
         android:layout_marginTop="@dimen/item_medium"
         android:layout_marginStart="@dimen/item_medium"
         android:textSize="@dimen/TileNama"
@@ -29,6 +29,7 @@
 
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_kodekaryawan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -124,29 +125,5 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/menu_layout"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/item_medium">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/any_trouble_message_us"
-            android:textColor="@android:color/white"/>
-
-        <TextView
-            android:id="@+id/adminmsg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/message_us"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:layout_marginStart="@dimen/item_verysmall"/>
-
-    </LinearLayout>
 
 </RelativeLayout>

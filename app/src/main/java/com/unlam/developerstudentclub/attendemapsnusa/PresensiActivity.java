@@ -39,8 +39,6 @@ public class PresensiActivity extends AppCompatActivity {
     @BindView(R.id.btn_checkout)
     LinearLayout btn_checkout;
 
-    @BindView(R.id.adminmsg)
-    TextView btn_adminmsg;
     @BindView(R.id.tv_kodekaryawan)
     TextView tv_kodekaryawan;
     @BindView(R.id.tv_username)
@@ -60,9 +58,6 @@ public class PresensiActivity extends AppCompatActivity {
 
         userPreference =  new UserPreference(this);
 
-        tv_username.setText(userPreference.getNama());
-        tv_kodekaryawan.setText(userPreference.getCode());
-
         Fonty
                 .context(this)
                 .normalTypeface("Domine-Regular.ttf")
@@ -71,7 +66,7 @@ public class PresensiActivity extends AppCompatActivity {
 
         Fonty.setFonts(this);
 
-        PushDownAnim.setPushDownAnimTo(btn_checkin,btn_checkout,btn_adminmsg)
+        PushDownAnim.setPushDownAnimTo(btn_checkin,btn_checkout)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

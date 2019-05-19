@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AttendeMapsNusa</string>
+    <string name="app_name">Absensi Karyawan</string>
     <string name="fill_it_with_the_right_e_mail_address">Fill it with the right e-mail address</string>
     <string name="any_trouble_message_us">Any trouble?</string>
     <string name="login">Login</string>
@@ -21,4 +21,5 @@
     <string name="checkin">Check In</string>
     <string name="checkout">Check Out</string>
     <string name="pick_place">Choose a place</string>
+    <string name="syarifah_risnayani_nrp_15_04_1058">Syarifah Risnayani NRP 15.04.1058</string>
 </resources>

@@ -7,6 +7,6 @@
     <dimen name="item_big">96dp</dimen>
     <dimen name="item_verysmall">8dp</dimen>
 
-    <dimen name="MainTitle">60sp</dimen>
+    <dimen name="MainTitle">30sp</dimen>
     <dimen name="TileNama">30sp</dimen>
 </resources>
